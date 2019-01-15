@@ -1,0 +1,12 @@
+.nyc_output
+node_modules/
+.git/
+coverage/
+.*ignore
+*.md
+Dockerfile
+.gitignore
+.env
+.hooks/
+Jenkinsfile
+doc/

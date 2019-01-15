@@ -1,0 +1,22 @@
+{
+  "tests" : [
+    {
+      "threads": 100,
+      "duration": "60s",
+      "connections": 100,
+      "paths": [
+        "/v1/reviews?accomodation=96e83a90-48da-4e81-9d06-7f1b76e5364e"
+      ],
+      "requirements": {
+        "latencyAvg": 200,
+        "latencyStdev": 40,
+        "latencyMax": 500,
+        "non2xx3xx": 0,
+        "latency50": 190,
+        "latency75": 210,
+        "latency90": 230,
+        "latency99": 280
+      }
+    }
+  ]
+}

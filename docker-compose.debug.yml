@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    container_name: nyan-asd-debug
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    environment:
+      REDIS_HOST: 'redis'
+    ports:
+      - '3001:80'
+      - '9229:9229'
+    volumes:
+      - ./:/etc
+    entrypoint:
+      - npm
+      - run
+      - compose-debug
+    depends_on:
+      - redis
+  redis:
+    image: redis:5-alpine
+    ports:
+      - '6379:6379'

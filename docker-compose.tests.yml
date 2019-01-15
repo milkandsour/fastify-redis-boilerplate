@@ -1,0 +1,24 @@
+version: '3'
+services:
+  tests:
+    container_name: nyan-asd-tests
+    build:
+      context: .
+      dockerfile: Dockerfile.tests
+    environment:
+      REDIS_HOST: 'redis'
+    ports:
+      - '3001:80'
+    volumes:
+      - ./src:/etc/src
+      - ./tests:/etc/tests
+    entrypoint:
+      - npm
+      - run
+      - compose-tests
+    depends_on:
+      - redis
+  redis:
+    image: redis:5-alpine
+    ports:
+      - '6379:6379'

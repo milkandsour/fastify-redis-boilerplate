@@ -1,0 +1,7 @@
+apps :
+  - script        : src/server
+    exec_mode     : fork_mode
+    node_args     :
+      - --inspect=0.0.0.0:9229
+    watch         :
+      - src/server

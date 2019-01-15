@@ -1,0 +1,86 @@
+openapi: 3.0.0
+servers: []
+info:
+  title: safdjksa jkl jdakljdlajlk
+  version: "1.0.0"
+tags:
+  - name: reviews
+    description: get a list of reviews by accomodation
+paths:
+  /v1/reviews:
+    get:
+      tags:
+        - reviews
+      summary: get reviews by accomodation key
+      description: get reviews by accomodation key
+      parameters:
+        - in: query
+          name: along
+          description: the category
+          schema:
+            type: string
+            enum:
+              - FAMILY
+              - OTHER
+              - FRIENDS
+              - COUPLE
+              - SINGLE
+        - in: query
+          name: order
+          description: the reviews order
+          schema:
+            type: string
+            enum:
+              - submissions
+              - travels
+        - in: query
+          name: accomomdation
+          description: the accomodation key
+          schema:
+            type: string
+            format: uuid
+        - in: query
+          name: offset
+          description: results offset
+          schema:
+            type: integer
+            minimum: 0
+        - in: query
+          name: limit
+          description: limit results
+          schema:
+            type: number
+            minimum: 1
+        - in: query
+          name: from
+          description: timestamp from
+          schema:
+            type: integer
+            minimum: 631065600000
+        - in: query
+          name: to
+          description: timestamp to
+          schema:
+            type: integer
+            minimum: 631065600000
+      responses:
+        '200':
+          description: a collection of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'
+        '400':
+          description: illegal input for operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  schemas:
+    Reviews:
+      type: object
+      example: {"collection":[{"key":"e54b1d94-5590-4410-9d4e-76b3ea1f2ce5","accomodation":"96e83a90-48da-4e81-9d06-7f1b76e5364e","along":"COUPLE","travel":1470009600000,"submission":1472550180580,"general":10,"user":"Claus Duus Pedersen","locale":"en","texts":{"en":"Friendly staff - nice restaurants and Sporting Bar"},"titles":{"en":"Great camping site"},"aspects":{"location":10,"service":0,"priceQuality":9,"food":0,"room":0,"childFriendly":9,"interior":0,"size":0,"activities":0,"restaurants":0,"sanitaryState":0,"accessibility":0,"nightlife":0,"culture":0,"surrounding":0,"atmosphere":0,"noviceSkiArea":0,"advancedSkiArea":0,"apresSki":0,"beach":0,"entertainment":0,"environmental":0,"pool":10,"terrace":0},"scores":{"weight":0.7,"general":7,"aspects":{"location":7,"service":0,"priceQuality":6.3,"food":0,"room":0,"childFriendly":6.3,"interior":0,"size":0,"activities":0,"restaurants":0,"sanitaryState":0,"accessibility":0,"nightlife":0,"culture":0,"surrounding":0,"atmosphere":0,"noviceSkiArea":0,"advancedSkiArea":0,"apresSki":0,"beach":0,"entertainment":0,"environmental":0,"pool":7,"terrace":0}}}],"scores":{"general":10,"aspects":{"location":{"general":10,"COUPLE":10},"service":{"general":0,"COUPLE":0},"priceQuality":{"general":9,"COUPLE":9},"food":{"general":0,"COUPLE":0},"room":{"general":0,"COUPLE":0},"childFriendly":{"general":9,"COUPLE":9},"interior":{"general":0,"COUPLE":0},"size":{"general":0,"COUPLE":0},"activities":{"general":0,"COUPLE":0},"restaurants":{"general":0,"COUPLE":0},"sanitaryState":{"general":0,"COUPLE":0},"accessibility":{"general":0,"COUPLE":0},"nightlife":{"general":0,"COUPLE":0},"culture":{"general":0,"COUPLE":0},"surrounding":{"general":0,"COUPLE":0},"atmosphere":{"general":0,"COUPLE":0},"noviceSkiArea":{"general":0,"COUPLE":0},"advancedSkiArea":{"general":0,"COUPLE":0},"apresSki":{"general":0,"COUPLE":0},"beach":{"general":0,"COUPLE":0},"entertainment":{"general":0,"COUPLE":0},"environmental":{"general":0,"COUPLE":0},"pool":{"general":10,"COUPLE":10},"terrace":{"general":0,"COUPLE":0}},"COUPLE":10}}
+    ValidationError:
+      type: Object
+      example: {"statusCode":400,"error":"Bad Request","message":"querystring should have required property 'accomodation'"}

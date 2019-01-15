@@ -1,0 +1,44 @@
+version: '3'
+services:
+  web:
+    container_name: nyan-asd-debug
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    environment:
+      REDIS_HOST: 'redis'
+      LOG: 'fatal'
+    ports:
+      - '3002:80'
+      - '9229:9229'
+    volumes:
+      - ./:/etc
+    entrypoint:
+      - npm
+      - run
+      - compose-debug
+    depends_on:
+      - redis
+  benchmarks:
+    container_name: nyan-asd-benchmarks
+    environment:
+      SERVER_HOST: 'nyan-asd-debug'
+      SERVER_PORT: 80
+    build:
+      context: .
+      dockerfile: Dockerfile.benchmarks
+    volumes:
+      - ./src:/etc/src
+      - ./tests:/etc/tests
+    command: >
+      /bin/bash -c "
+        echo sleeping;
+        sleep 2;
+        npm run benchmark
+      "
+    depends_on:
+      - web
+  redis:
+    image: redis:5-alpine
+    ports:
+      - '6378:6379'
