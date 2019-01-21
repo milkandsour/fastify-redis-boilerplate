@@ -1,6 +1,6 @@
 {
   "name": "fastify-redis-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a fastify redis boilerplate",
   "main": "src/server/index.js",
   "directories": {
@@ -9,6 +9,10 @@
   },
   "bin": {
     "build": "./build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milkandsour/fastify-redis-boilerplate.git"
   },
   "scripts": {
     "start": "node_modules/.bin/pm2-docker server.yml --json --env production --name nyan-asd",
